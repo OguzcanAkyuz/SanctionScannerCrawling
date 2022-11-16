@@ -11,8 +11,7 @@
 
 * İşlemler bittiğinde html dosyası siliniyor ve 5 dakika uyku moduna alınıyor.
 
-* While döngüsü her 5 dakika bir çalıştırılıyor, 5 dakika olmasının sebebi yaptığım testlerde her 5 dakikada bir vitrin sayfasına yeni veriler ekleniyor.Hem 5 dakikada
-bir istek attığımız için ban riski neredeyse yok oluyor, hem verilerimizi 1 saniye içerisinde ekrana ve txt dosyamıza kaydediyor.
+* While döngüsü her 5 dakika bir çalıştırılıyor, 5 dakika olmasının sebebi yaptığım testlerde her 5 dakikada bir vitrin sayfasına yeni veriler ekleniyor(Bu süreç bazen 20 dakika olabiliyor yaptığım 1 saat test üzerine değişiklik gösterebiliyor.).Hem 5 dakikada bir istek attığımız için ban riski neredeyse yok oluyor, hem verilerimizi 1 saniye içerisinde ekrana ve txt dosyamıza kaydediyor.
 
 *************************************************
                                                  
