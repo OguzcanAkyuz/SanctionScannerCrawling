@@ -4,7 +4,7 @@
 *  Öncelik olarak "C:\htmldownload"  htmldownload adlı dosya oluşturuyoruz, daha sonra "C:\demo" klasörü altına "demo.txt" adlı dosyayı açıyoruz.
 * WebClient ile 1 kere İstek atıyor ve html sayfası indiriliyor. 
 
-* Bilgisayarımızda bulunan HTML sayfası içerisinde ki İsim ve Fiyat Regex ile aratılıyor.
+* Bilgisayarımızda bulunan HTML sayfası içerisinde İsim ve Fiyat Regex ile aratılıyor.
 
 * Regex ile match ettikten sonra Console ekranına yazdırılıyor.
 
@@ -16,23 +16,17 @@
 
 *************************************************
                                                  
-*Crawling Uygulaması geliştirme aşamasında taskı ilk açtığımda, araştırmalarıma başlamadan önce algoritma tasarlamaya nasıl olabilir. 
-En basitinden düşündüğümde herkesin ilk aklına gelen "Thread.Sleep" ufak bir yavaşlatmaydı ama bu her zaman çalışmaz, her geçen gün yeni önlemler alınıyor ve hem istediğim
-veriyi hem yavaş alacaktım,hem her 5 10 saniyede bir istek atıyordum sonuçta buda bi yerden sonra anlaşılabilir bir haldeydi.
+*Crawling Uygulaması geliştirme aşamasında taskı ilk açtığımda, araştırmalarıma başlamadan önce algoritma tasarlamaya başladım nasıl olabilir. 
+En basit şekilde aklıma gelen,  "Thread.Sleep" ufak bir yavaşlatmaydı ama bu her zaman çalışmaz, her geçen gün yeni önlemler alınıyor ve hem istediğim
+veriyi hem yavaş alacaktım,hem her 5 10 saniyede bir istek atıyordum sonuçta bu yöntem sonsuza dek çalışmaz.
 
-*Daha farklı bir yapı düşündüm aklıma ilk gelen "Cloud Server" ile bir algoritma planladım, bu algoritma üzerinde yapı şu şekildeydi 5 farklı Cloud Server açıyordum, 
-Google Cloud, Amazon Cloud vb. Cloud hizmeti veren şirketler üzerinde serverleri kurdum, istek her 2 saniyede bir farklı bir server IP'si üzerinden siteye istek atacaktı
-ama sonunda düşündüğümde hem maliyetli olacaktı, hem de belli bir noktadan sonra buda anlaşılabilir hale gelecekti.
+*Daha farklı bir yapı düşündüm aklıma ilk gelen "Cloud Server" ile bir algoritma tasarladım, bu algoritma üzerinde yapı şu şekildeydi 5 farklı Cloud Server açıyordum, 
+Google Cloud, Amazon Cloud vb. Cloud hizmeti veren şirketler üzerinde serverleri kurdum, istek her 2 saniyede bir farklı bir server IP'si üzerinden siteye istek atacaktı ama sonunda düşündüğümde hem maliyetli olacaktı, hem de belli bir noktadan sonra buda anlaşılabilir hale gelecekti.
 
-*Bundan sonra aklıma gelende bir IpList şeklinde dosya oluşturmaktı sunucum üzerinde bir liste oluşturup Headers kısmına ipleri sırasıyla yazdıracak isteklerimi her
-seferinde farklı ip üzerinden atılacaktı onlarca ip olduğundan dolayı ban yemek riski oldukça azalıyordu. Hem çok mantıklı geldi hem WebClient gibi hizmetleri daha önce
-kullandığım için istek atma işlemlerini biliyordum. Sürekli WebClient isteği atmak tam kafama oturmamıştı bir türlü, daha sonra vakit kaybetmeden WebClient araştırmasına
-başladım.Belirli satırlar nasıl çekilir gibisinden içerisinde ki div gibi html kodlarından olduğunu gördüğümde girdim mantığını anladım testlerime başladım.Gün sonunda
-belirli aşama kaydettim daha sonrasında farklı bir yapı kurdum kafamda şuan asıl kullanmakta olduğum yapıya geçiyorum şimdi.
+*Bundan sonra aklıma tasarladığım yapı bir IpList şeklinde dosya oluşturmaktı sunucum üzerinde bir liste oluşturup Headers kısmına ipleri sırasıyla yazdıracak istek her seferinde farklı ip üzerinden atılacaktı onlarca ip olduğundan dolayı ban yemek riski oldukça azalıyordu. Hem çok mantıklı geldi hem WebClient gibi hizmetleri daha önce kullandığım için istek atma işlemlerini biliyordum. Sürekli WebClient isteği atmak istemiyordum bu yöntemde tam mantıklı olmuyordu.Asıl kullancağım algoritmayı tasarladım.
 
-*Sürekli istek atmaktan vazgeçip,Olağan HTML sayfasını bilgisayarıma indirmeye karar verdim.Sonuçta diğer türlü hem yavaş yazdırılacaktı ve yavaş yazdırmak hiç istenilen
-bir olay değildir çünkü yazılımları işimizi kolaylaştırsın diye yaparız. 
+*Sürekli istek atmaktan vazgeçip,olağan HTML sayfasını bilgisayarıma indirmeye karar verdim.Sonuçta diğer türlü  yavaş yazdırılacaktı ve yavaş yazdırmak hiç istenilen
+bir olay değildir çünkü yazılımları işimizi kolaylaştırsın diye yaparız.Yavaş almak istesem zaten elle yazardım.
 *WebClient ile html sayfasını indirdim, kendimi bir tarayıcı gibi gösterdiğim için ban yemiyordum.
-*Dosya Bilgisayarımda oldu, bilgisayarımda ki dosyayı Regex ile aratıcaktım daha önce kullanmıştım ama html kodları arasından biraz karmaşıktı baştan sona araştırdım ve 
-aratacağım metodu buldum. Regex ile match ettikten sonra isimleri ve fiyatları ve ortalamayı aldım ve console ekranına yazdırdım. Son kalan kısım dosyayı kaydetmekti, 
-"StreamWriter" ile dosyayı istediğim yere kaydettim. 
+*Dosya Bilgisayarımda oldu, bilgisayarımda ki dosyayı Regex ile aratıcaktım daha önce kullanmıştım aratacağım metodu buldum. Regex ile match ettikten sonra isimleri ve fiyatları ve ortalamayı aldım ve console ekranına yazdırdım. Son kalan kısım dosyayı kaydetmekti, 
+"StreamWriter" ile dosyayı istediğim yere kaydettim.Bu işlemden sonra html otomatik sildirterek, vitrin sayfası güncellenene kadar uyku moduna aldım, her güncellemede tekrardan çalıştırdım.
