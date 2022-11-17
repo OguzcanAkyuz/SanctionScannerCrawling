@@ -1,7 +1,7 @@
 # SanctionScannerCrawling
 
                                    #İZLENİLEN ADIMLAR ve Çalışma Aşamaları#  
-*  Öncelik olarak "C:\htmldownload"  htmldownload adlı dosya oluşturuyoruz, daha sonra "C:\demo" klasörü altına "demo.txt" adlı dosyayı açıyoruz.
+*  Öncelik olarak "C:\htmldownload"  htmldownload adlı dosya oluşturuyoruz, daha sonra "C:\demo" klasörü altına "demo.txt" adlı dosyayı oluşturuyoruz.
 * WebClient ile 1 kere İstek atıyor ve html sayfası indiriliyor. 
 
 * Bilgisayarımızda bulunan HTML sayfası içerisinde İsim ve Fiyat Regex ile aratılıyor.
@@ -26,7 +26,8 @@ Google Cloud, Amazon Cloud vb. Cloud hizmeti veren şirketler üzerinde serverle
 *Bundan sonra aklıma tasarladığım yapı bir IpList şeklinde dosya oluşturmaktı sunucum üzerinde bir liste oluşturup Headers kısmına ipleri sırasıyla yazdıracak istek her seferinde farklı ip üzerinden atılacaktı onlarca ip olduğundan dolayı ban yemek riski oldukça azalıyordu. Hem çok mantıklı geldi hem WebClient gibi hizmetleri daha önce kullandığım için istek atma işlemlerini biliyordum. Sürekli WebClient isteği atmak istemiyordum bu yöntemde tam mantıklı olmuyordu.Asıl kullancağım algoritmayı tasarladım.
 
 *Sürekli istek atmaktan vazgeçip,olağan HTML sayfasını bilgisayarıma indirmeye karar verdim.Sonuçta diğer türlü  yavaş yazdırılacaktı ve yavaş yazdırmak hiç istenilen
-bir olay değildir çünkü yazılımları işimizi kolaylaştırsın diye yaparız.Yavaş almak istesem zaten elle yazardım.
-*WebClient ile html sayfasını indirdim, kendimi bir tarayıcı gibi gösterdiğim için ban yemiyordum.
-*Dosya Bilgisayarımda oldu, bilgisayarımda ki dosyayı Regex ile aratıcaktım daha önce kullanmıştım aratacağım metodu buldum. Regex ile match ettikten sonra isimleri ve fiyatları ve ortalamayı aldım ve console ekranına yazdırdım. Son kalan kısım dosyayı kaydetmekti, 
-"StreamWriter" ile dosyayı istediğim yere kaydettim.Bu işlemden sonra html otomatik sildirterek, vitrin sayfası güncellenene kadar uyku moduna aldım, her güncellemede tekrardan çalıştırdım.
+bir olay değildir çünkü yazılımlar işimizi kolaylaştırsın diye yapılır.
+
+*WebClient ile html sayfasını indirdim, kendimi bir tarayıcı gibi gösterdiğim için banlanmıyordum.
+*Dosya bilgisayara indirildi, bilgisayardaki dosyayı Regex ile match ettikten sonra isimleri ve fiyatları ve ortalamayı aldım ve console ekranına yazdırdım. Son kalan kısım dosyayı kaydetmekti, 
+"StreamWriter" ile dosyayı istediğim yere kaydettim.Bu işlemden sonra html otomatik sildirterek, vitrin sayfası güncellenene kadar uyku moduna aldım, her güncellemede tekrardan çalıştırıp verileri kaydedilmesini sağlıyorum.
