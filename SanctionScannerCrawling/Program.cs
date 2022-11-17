@@ -12,41 +12,42 @@ namespace SanctionScannerCrawling
      
         static void Main(string[] args)
         {
-            
+            //YORUM EKLE 
            
             string confirm = "Accept: text / html, application / xhtml + xml, */*";
-            string userAgent =  "User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)";
-            string userAgent2 = "User-Agent: Mozilla/4.0 (Compatible; Windows NT 5.1; MSIE 6.0) ";
-            string userAgent3 = "User-Agent:Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +https://www.google.com/bot.html)";
-            string userAgent4 = "User-Agent:Mozilla/5.0 (Windows NT 6.4; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; rv:11.0) like Gecko";
-            var indirilecekDizin = @"C:\htmldowland";
-            string URL = "https://www.sahibinden.com/anasayfa-vitrin?viewType=Gallery";
-            string dosyaAdi = "test.html";
-            string dosyaYolu = @"C:\htmldowland\test.html";
+            string userAgent = "User-Agent:Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +https://www.google.com/bot.html)";
+
+      
+
+            var directoryDownload = @"C:\htmldownload\";
+            string url = "https://www.sahibinden.com/anasayfa-vitrin?viewType=Gallery";
+            string saveName = "test.html";
+
+            string filepath = @"C:\htmldownload\test.html";
+
             int timer = 0;
-            while(timer < 10){ 
-            WebClient webClient = new WebClient();
-            webClient.Headers.Add(confirm);
-            webClient.Headers.Add(userAgent3);
-           
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-            webClient.DownloadFile(new Uri(URL), indirilecekDizin + "/" + dosyaAdi);
-                
-            FileStream fs = new FileStream(dosyaYolu, FileMode.Open, FileAccess.Read);
-             fs.Close();
-             RegexWritline.DosyaOku();
+            while(timer < 10){
 
-             RegexWritline.IsimOku();
-                
-             int milsec = 10000;
-            Thread.Sleep(milsec);
 
-               
-             if (System.IO.File.Exists(dosyaYolu))
-            {
-             System.IO.File.Delete(dosyaYolu);
-            }
+                using (HttpService httpService = new HttpService())
+                {
+                    httpService.AddHeaders(confirm);
+                    httpService.AddHeaders(userAgent);
+                    httpService.DownloadFile(new Uri(url), directoryDownload + "/" + saveName);
+                }
+
+                using (RegexWritline regexWritline = new RegexWritline())
+                {
+                    regexWritline.ReadFile();
+                    regexWritline.ReadName();
+                }  
+                 int milsec = 5000; 
+                 Thread.Sleep(milsec);
+
+                using (FileService fileService = new FileService())
+                {
+                    fileService.DeleteFile(filepath);
+                }
 
             int milseco = 500000;
             Thread.Sleep(milseco);
@@ -54,12 +55,7 @@ namespace SanctionScannerCrawling
 
 
         }
-        private static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-        }
-        private static void Completed(object sender, AsyncCompletedEventArgs e)
-        {
-        }
+     
 
     }
 }

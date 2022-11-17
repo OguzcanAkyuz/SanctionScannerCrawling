@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SanctionScannerCrawling
 {
-    public class RegexWritline
+    public class RegexWritline : IDisposable 
     {
-        public static void DosyaOku()
+        public void ReadFile()
         {
             string regexPriceType = "<span>\\s+(?<fiyat>[0-9.]*).*</span></h5>";
-            string testYolu = @"C:\test\test.txt";
-            string dosyaYolu = @"C:\htmldowland\test.html";
+            string demoPath = @"C:\demo\demo.txt";
+            string filepath = @"C:\htmldownload\test.html";
 
             Regex regex = new Regex(regexPriceType, RegexOptions.IgnoreCase);
-            using (var sr = new StreamReader(dosyaYolu))
+            using (var sr = new StreamReader(filepath))
             {
 
                 var contents = sr.ReadToEnd();
@@ -31,13 +31,13 @@ namespace SanctionScannerCrawling
 
                     toplam += Convert.ToDouble(match.Groups[1].Value);
 
-                    if (File.Exists(dosyaYolu))
+                    if (File.Exists(filepath))
                     {
-                        using (var sw = new StreamWriter(testYolu, true))
+                        using (var sw = new StreamWriter(demoPath, true))
                         {
 
 
-                            sw.WriteLine("FİYAT: " + match.Groups[1]);
+                            sw.WriteLine("PRICES : " + match.Groups[1]);
 
                             sw.Close();
 
@@ -49,12 +49,12 @@ namespace SanctionScannerCrawling
 
                 }
                 //ortalama fiyat hesaplama 
-                using (var sw = new StreamWriter(testYolu, true))
+                using (var sw = new StreamWriter(demoPath, true))
                 {
-                    sw.Write("Toplam Fiyat Ortalaması: " + toplam / t.Count);
+                    sw.Write("Total Price Average: " + toplam / t.Count);
                 }
 
-                Console.WriteLine("Toplam Fiyat Ortalaması: " + toplam / t.Count);
+                Console.WriteLine("Total Price Average: " + toplam / t.Count);
 
 
             }
@@ -62,28 +62,29 @@ namespace SanctionScannerCrawling
 
 
         }
-        public static void IsimOku()
+        public void ReadName()
         {
-            string testYolu = @"C:\test\test.txt";
-            string dosyaYolu = @"C:\htmldowland\test.html";
+            string demoPath = @"C:\demo\demo.txt";
+            string filepath = @"C:\htmldownload\test.html";
             string regexNameType = "<h2 class=\"item-title\">\\s+(?<title>.*)</h2>";
+
             Regex regexString = new Regex(regexNameType, RegexOptions.Multiline);
-            using (var sr = new StreamReader(dosyaYolu))
+            using (var sr = new StreamReader(filepath))
             {
                 var contents = sr.ReadToEnd();
                 var nameRegex = regexString.Matches(contents);
 
                 foreach (Match matching in nameRegex)
                 {
-                    Console.WriteLine("İsimler: " + matching.Groups[1]);
+                    Console.WriteLine("NAMES: " + matching.Groups[1]);
 
-                    if (File.Exists(dosyaYolu))
+                    if (File.Exists(filepath))
                     {
-                        using (var streamWriter = new StreamWriter(testYolu, true))
+                        using (var streamWriter = new StreamWriter(demoPath, true))
                         {
 
 
-                            streamWriter.WriteLine("İsimler: " + matching.Groups[1]);
+                            streamWriter.WriteLine("NAMES : " + matching.Groups[1]);
 
                             streamWriter.Close();
 
@@ -94,5 +95,9 @@ namespace SanctionScannerCrawling
 
         }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
     }
 }
