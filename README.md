@@ -1,7 +1,8 @@
 # SanctionScannerCrawling
 
                                    #İZLENİLEN ADIMLAR ve Çalışma Aşamaları#  
-* WebClient ile 1 kere İstek atıyor ve html sayfası indiriliyor.
+*  Öncelik olarak "C:\htmldownload"  htmldownload adlı dosya oluşturuyoruz, daha sonra "C:\demo" klasörü altına "demo.txt" adlı dosyayı açıyoruz.
+* WebClient ile 1 kere İstek atıyor ve html sayfası indiriliyor. 
 
 * Bilgisayarımızda bulunan HTML sayfası içerisinde ki İsim ve Fiyat Regex ile aratılıyor.
 
