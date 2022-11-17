@@ -1,8 +1,12 @@
-﻿using System;
+﻿using SanctionScannerCrawling.Abstract;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
@@ -11,10 +15,11 @@ namespace SanctionScannerCrawling
 {
     public class Program
     {
-     
+       
         static void Main(string[] args)
-        {
-
+        {  
+            //Where to save the values ​​found with "regex".
+            string demoPath = @"C:\demo\demo.txt";
             //When the website does not accept the software, we send accept me like this.
             string confirm = "Accept: text / html, application / xhtml + xml, */*";
             //  We make ourselves look like a browser.
@@ -40,17 +45,45 @@ namespace SanctionScannerCrawling
                     httpService.DownloadFile(new Uri(url), directoryDownload + "/" + saveName);
                 }
 
-                using (RegexWritline regexWritline = new RegexWritline())
+                using (RegexWritlineService regexWritline = new RegexWritlineService())
                 {
-                   // The voids we call to read and print the file we downloaded to our computer.
-                    regexWritline.ReadFile();
-                    regexWritline.ReadName();
+                    // The voids we call to read and print the file we downloaded to our computer.
+                    var names = regexWritline.ReadName();
+                    var prices = regexWritline.ReadPrices();
+
+                    Dictionary<string, string> datas = new Dictionary<string, string>();
+                    double toplam = 0;
+                    for (int i = 0; i < names.Count; i++)
+                    {
+                        datas.Add(names[i].Groups[1].Value, prices[i].Groups[1].Value);
+                       
+                        //Printing names and prices to the console after matching with regex.
+                        Console.WriteLine("NAME : "+names[i].Groups[1].Value + "   " + "PRICE : "+  prices[i].Groups[1].Value);
+                        using (var sw = new StreamWriter(demoPath, true))
+                        {
+                            // Printing names and prices to the file after matching with regex.
+                           sw.WriteLine("NAME : " + names[i].Groups[1].Value + "   " + "PRICE : " + prices[i].Groups[1].Value);
+                            sw.Close();
+
+                        }
+                        toplam += Convert.ToDouble(prices[i].Groups[1].Value);
+
+                    }
+                    using (var sw = new StreamWriter(demoPath, true))
+                    {
+                        //Total Price Average File Path
+                        sw.Write("Total Price Average: " + toplam / prices.Count);
+                    }
+                    Console.WriteLine("Total Price Average: " + toplam / prices.Count);
+
+                 
+                    
                 }
                // Wait a bit before deleting the file.
                  int milsec = 5000; 
                  Thread.Sleep(milsec);
 
-
+                
                 using (FileService fileService = new FileService())
                 {
                     
@@ -59,8 +92,8 @@ namespace SanctionScannerCrawling
                 }
                 
                 //A wait to restart every 5 minutes.
-            int milseco = 500000;
-            Thread.Sleep(milseco);
+              int milseco = 500000;
+               Thread.Sleep(milseco);
             }
 
 

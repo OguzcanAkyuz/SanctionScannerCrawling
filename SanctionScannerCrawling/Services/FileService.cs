@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SanctionScannerCrawling.Abstract;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SanctionScannerCrawling
 {
-    public class FileService : IDisposable
+    public class FileService : IDisposable, IFileService
     {
         /// <summary>
         ///  If the code does not work, we catch it with a try catch and start the deletion code here.

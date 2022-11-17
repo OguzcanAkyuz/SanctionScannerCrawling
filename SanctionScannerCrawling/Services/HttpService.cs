@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SanctionScannerCrawling.Abstract;
+using System;
 using System.ComponentModel;
 using System.Net;
 
 namespace SanctionScannerCrawling
 {
-    public class HttpService : IDisposable
+
+    public class HttpService : IDisposable, IHttpService
     {
         private WebClient _webClient;
         public HttpService()
@@ -57,11 +59,13 @@ namespace SanctionScannerCrawling
             return true;
         }
 
-        private static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        public  void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+            Console.WriteLine("Dowloading Path");
         }
-        private static void Completed(object sender, AsyncCompletedEventArgs e)
+        public  void Completed(object sender, AsyncCompletedEventArgs e)
         {
+            Console.WriteLine("Download Complete");
         }
         /// <summary>
         ///   // While the software is running,We run the delete code after this service is running to reduce the load on the RAM.
