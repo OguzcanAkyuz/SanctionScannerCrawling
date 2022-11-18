@@ -18,7 +18,7 @@ namespace SanctionScannerCrawling
             //I split the code into services when we need to change it in the future.
 
             //Regex expression code to get price information from "HTML" file.
-            string regexPriceType = "<span>\\s+(?<fiyat>[0-9.\\d]*).*</span></h5>";
+            string regexPriceType = "<span>\\s+(?<fiyat>[0-9.]*).*</span></h5>";
             //Where to save the values ​​found with "regex".
             string demoPath = @"C:\demo\demo.txt";
             //The path of the file to be deleted.

@@ -27,7 +27,7 @@ namespace SanctionScannerCrawling
            // File download path
            var directoryDownload = @"C:\htmldownload\";
             //url to download
-            string url = "https://www.sahibinden.com/anasayfa-vitrin?viewType=Gallery";
+            string url = "https://www.sahibinden.com/anasayfa-vitrin?viewType=Gallery&sorting=address_asc";
             //We specify the name under which the file is saved.
             string saveName = "test.html";
             //The path of the file to be deleted.
